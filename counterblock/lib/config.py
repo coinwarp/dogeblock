@@ -17,21 +17,21 @@ REGULAR_DUST_SIZE = 5430
 MULTISIG_DUST_SIZE = 5430 * 2
 ORDER_BTC_DUST_LIMIT_CUTOFF = MULTISIG_DUST_SIZE
 
-BTC = 'BTC'
-XCP = 'XCP'
+BTC = 'DOGE'
+XCP = 'XDP'
 
-BTC_NAME = "Bitcoin"
-XCP_NAME = "Counterparty"
-APP_NAME = "counterblock"
+BTC_NAME = "Dogecoin"
+XCP_NAME = "Dogeparty"
+APP_NAME = "dogeblock"
 
 MAX_REORG_NUM_BLOCKS = 10 #max reorg we'd likely ever see
 MAX_FORCED_REORG_NUM_BLOCKS = 20 #but let us go deeper when messages are out of sync
 
-QUOTE_ASSETS = ['BTC', 'XBTC', 'XCP'] # define the priority for quote asset
-MARKET_LIST_QUOTE_ASSETS = ['XCP', 'XBTC', 'BTC'] # define the order in the market list
+QUOTE_ASSETS = ['DOGE', 'XDOGE', 'XDP'] # define the priority for quote asset
+MARKET_LIST_QUOTE_ASSETS = ['XDP', 'XDOGE', 'DOGE'] # define the order in the market list
 
-DEFAULT_BACKEND_PORT_TESTNET = 18332
-DEFAULT_BACKEND_PORT = 8332
+DEFAULT_BACKEND_PORT_TESTNET = 44555
+DEFAULT_BACKEND_PORT = 22555
 
 
 ##
@@ -93,18 +93,18 @@ def load(args):
 
     global net_path_part
     net_path_part = '.testnet' if TESTNET else ''
-    
+
     #first block
     global BLOCK_FIRST
     if TESTNET:
-        BLOCK_FIRST = 310000
+        BLOCK_FIRST = 124678
     else:
-        BLOCK_FIRST = 278270
+        BLOCK_FIRST = 335642
 
     #forced reparse?
     global REPARSE_FORCED
     REPARSE_FORCED = args.reparse
-        
+
     ##############
     # THINGS WE CONNECT TO
 
@@ -129,14 +129,14 @@ def load(args):
         assert int(BACKEND_PORT) > 1 and int(BACKEND_PORT) < 65535
     except:
         raise Exception("Please specify a valid port number for the backend-port configuration parameter")
-            
+
     global BACKEND_USER
     if args.backend_user:
         BACKEND_USER = args.backend_user
     elif has_config and configfile.has_option('Default', 'backend-user') and configfile.get('Default', 'backend-user'):
         BACKEND_USER = configfile.get('Default', 'backend-user')
     else:
-        BACKEND_USER = 'rpc'
+        BACKEND_USER = 'dogecoinrpc'
 
     global BACKEND_PASSWORD
     if args.backend_password:
@@ -170,13 +170,13 @@ def load(args):
     elif has_config and configfile.has_option('Default', 'counterparty-port') and configfile.get('Default', 'counterparty-port'):
         COUNTERPARTY_PORT = configfile.get('Default', 'counterparty-port')
     else:
-        COUNTERPARTY_PORT = 14000 if TESTNET else 4000
+        COUNTERPARTY_PORT = 15000 if TESTNET else 5000
     try:
         COUNTERPARTY_PORT = int(COUNTERPARTY_PORT)
         assert int(COUNTERPARTY_PORT) > 1 and int(COUNTERPARTY_PORT) < 65535
     except:
         raise Exception("Please specify a valid port number for the counterparty-port configuration parameter")
-    
+
     global COUNTERPARTY_USER
     if args.counterparty_user:
         COUNTERPARTY_USER = args.counterparty_user
