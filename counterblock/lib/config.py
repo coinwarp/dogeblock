@@ -305,7 +305,7 @@ def load(args):
     elif has_config and configfile.has_option('Default', 'rpc-port') and configfile.get('Default', 'rpc-port'):
         RPC_PORT = configfile.get('Default', 'rpc-port')
     else:
-        RPC_PORT = 14100 if TESTNET else 4100
+        RPC_PORT = 15100 if TESTNET else 5100
     try:
         RPC_PORT = int(RPC_PORT)
         assert int(RPC_PORT) > 1 and int(RPC_PORT) < 65535
